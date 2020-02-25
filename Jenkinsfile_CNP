@@ -4,9 +4,24 @@
 
 def type = "nodejs"
 def product = "ctsc"
-def component = "web-chat-test"
+def component = "web-chat-sample"
+
+def onMasterNotificationsChannel = '#ctsc-master-builds'
+def onDemoNotificationsChannel = '#ctsc-demo-builds'
+def onPRNotificationsChannel = '#ctsc-pr-builds'
 
 withPipeline(type, product, component) {
+
+  onMaster {
+    enableSlackNotifications(onMasterNotificationsChannel)
+  }
+  onDemo {
+    enableSlackNotifications(onDemoNotificationsChannel)
+  }
+  onPR {
+    enableSlackNotifications(onPRNotificationsChannel)
+  }
+
   installCharts()
   disableLegacyDeployment()
 }
