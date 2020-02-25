@@ -35,6 +35,9 @@ app.use('/public/webchat', express.static(webchatPath, caching));
 const webchatHtml = path.join(__dirname, '../resources/webchat.html')
 app.use('/web', (req, resp) => resp.sendFile(webchatHtml));
 
+//Health
+app.use('/health/**', (req, res) => res.status(200).json({ status: 'UP' }));
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 
