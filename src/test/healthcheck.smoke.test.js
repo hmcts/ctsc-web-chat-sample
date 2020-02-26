@@ -2,7 +2,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const httpTimeout = 60000;
-const frontendUrl = "http://localhost:3100"
+const CONF = require('config');
+const frontendUrl = CONF.e2e.frontendUrl; //"http://localhost:3100"
 chai.use(chaiHttp);
 
 //ignore self signed certs
