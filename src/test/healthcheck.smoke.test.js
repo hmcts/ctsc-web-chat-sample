@@ -2,14 +2,14 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const httpTimeout = 60000;
-const CONF = require('config');
-const frontendUrl = CONF.e2e.frontendUrl; //"http://localhost:3100"
+const frontendUrl = process.env.E2E_FRONTEND_URL || "http://localhost:3100";
 chai.use(chaiHttp);
 
 //ignore self signed certs
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 describe('GET /', function () {
+  console.log(frontendUrl);
   this.timeout(httpTimeout);
   it('should return 200 @smoke', function(done){
     chai.request(frontendUrl)
