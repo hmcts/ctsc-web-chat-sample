@@ -11,4 +11,5 @@
 !tsconfig.json
 
 !src/main/**
+!src/resources/**
 !config/**

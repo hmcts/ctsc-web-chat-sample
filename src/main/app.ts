@@ -1,10 +1,10 @@
 const { Express, Logger } = require('@hmcts/nodejs-logging')
 
 import * as bodyParser from "body-parser";
-const config = require('config')
+// const config = require('config')
 import cookieParser from "cookie-parser";
 import express from "express";
-import { Helmet } from "./modules/helmet";
+// import { Helmet } from "./modules/helmet";
 import * as path from "path";
 import { RouterFinder } from "./router/routerFinder";
 import favicon from "serve-favicon";
@@ -26,7 +26,17 @@ const logger = Logger.getLogger("app");
 new Nunjucks(developmentMode)
   .enableFor(app)
 // secure the application by adding various HTTP headers to its responses
-new Helmet(config.get("security")).enableFor(app);
+// new Helmet(config.get("security")).enableFor(app);
+
+const caching = {cacheControl: true, setHeaders: (res: any) => res.setHeader('Cache-Control', 'max-age=604800')};
+const webchatPath = path.join(__dirname, '../../node_modules/@hmcts/ctsc-web-chat/assets');
+app.use('/public/webchat', express.static(webchatPath, caching));
+
+const webchatHtml = path.join(__dirname, '../resources/webchat.html')
+app.use('/web', (req, resp) => resp.sendFile(webchatHtml));
+
+//Health
+app.use('/health/**', (req, res) => res.status(200).json({ status: 'UP' }));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
