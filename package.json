@@ -17,6 +17,7 @@
     "test:coverage": "cross-env NODE_ENV=test NODE_PATH=. nyc --reporter=lcov --reporter=text-lcov mocha --require ts-node/register $(find src/test \\( -name '*.ts' -or -name '*.js' \\) -path '*/routes/*')",
     "sonar-scan": "cross-env NODE_PATH=. sonar-scanner -Dsonar.projectKey='ctsc-web-forms-ui' -Dsonar.sources=. -Dsonar.tests=src/test -Dsonar.exclusions=src/**,test/**,node_modules/**,coverage/**,dist/**,app/**,views/templates/** -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info",
     "test:smoke": "./bin/run-smoke-test.sh",
+    "test:functional": "./bin/run-smoke-test.sh",
     "test:smoketest": "cross-env NODE_PATH=. mocha './src/test/**/*.smoke.test.js' --grep @smoke --reporter spec --recursive",
     "cichecks": "yarn && yarn sass && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y"
   },
